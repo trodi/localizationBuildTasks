@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="buildUtils" basedir=".">
+
+	<property environment="env" />
+	<property name="java.dir" location="${env.JAVA_HOME}" />
+	<property name="scala.dir" location="${env.SCALA_HOME}" />
+
+	<property name="scala-compiler.jar" value="${java.dir}/lib/scala-compiler.jar" />
+	<property name="scala-library.jar" value="${scala.dir}/lib/scala-library.jar" />
+
+	<path id="scala.classpath">
+		<pathelement location="${scala-compiler.jar}" />
+		<pathelement location="${scala-library.jar}" />
+	</path>
+
+	<path id="project.classpath">
+		<pathelement location="${scala-library.jar}" />
+		<!--<pathelement location="build/classes"/> -->
+		<!-- used during recompilation -->
+	</path>
+
+	<!-- load scala's ant tasks -->
+	<taskdef resource="scala/tools/ant/antlib.xml">
+		<classpath>
+			<pathelement location="${scala.dir}/lib/scala-compiler.jar" />
+			<!-- NEW: For scala 2.10.2 you need scala-reflect: -->
+			<pathelement location="${scala.dir}/lib/scala-reflect.jar" />
+			<pathelement location="${scala-library.jar}" />
+		</classpath>
+	</taskdef>
+
+	<target name="compile" description="Basic compile task">
+		<!-- print where this project will get scala and java from -->
+		<echo message="Init project" />
+		<echo message=" with scala.dir = ${scala.dir}" />
+		<echo message=" with java.dir = ${java.dir}" />
+
+		<scalac destdir="build" classpathref="project.classpath">
+			<include name="**/*.scala" />
+			<src>
+				<pathelement location="src" />
+			</src>
+		</scalac>
+	</target>
+
+	<!-- todo -->
+	<target name="package" depends="compile">
+		<jar jarfile="${deploy.war}">
+			<fileset dir="${web.dir}" />
+			<fileset dir="${build.dir}" />
+		</jar>
+	</target>
+
+</project>
