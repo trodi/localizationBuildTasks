@@ -2,6 +2,7 @@
 
 <project name="buildUtils" basedir=".">
 
+	<!-- properties --> 
 	<property environment="env" />
 	<property name="java.dir" location="${env.JAVA_HOME}" />
 	<property name="scala.dir" location="${env.SCALA_HOME}" />
@@ -9,6 +10,9 @@
 	<property name="scala-compiler.jar" value="${java.dir}/lib/scala-compiler.jar" />
 	<property name="scala-library.jar" value="${scala.dir}/lib/scala-library.jar" />
 
+	<property name="build.dir" value="build" />
+	<property name="src.dir" value="src" />
+	
 	<path id="scala.classpath">
 		<pathelement location="${scala-compiler.jar}" />
 		<pathelement location="${scala-library.jar}" />
@@ -36,10 +40,10 @@
 		<echo message=" with scala.dir = ${scala.dir}" />
 		<echo message=" with java.dir = ${java.dir}" />
 
-		<scalac destdir="build" classpathref="project.classpath">
+		<scalac destdir="${build.dir}" classpathref="project.classpath">
 			<include name="**/*.scala" />
 			<src>
-				<pathelement location="src" />
+				<pathelement location="${src.dir}" />
 			</src>
 		</scalac>
 	</target>
