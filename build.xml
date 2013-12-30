@@ -40,6 +40,8 @@
 		<echo message=" with scala.dir = ${scala.dir}" />
 		<echo message=" with java.dir = ${java.dir}" />
 
+		<mkdir dir="${build.dir}"/>
+		
 		<scalac destdir="${build.dir}" classpathref="project.classpath">
 			<include name="**/*.scala" />
 			<src>
