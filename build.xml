@@ -24,6 +24,7 @@
 
 		<property name="build.dir" value="build" />
 		<property name="src.dir" value="src" />
+		<property name="build.jar" value="localizationBuildTasks.jar" />
 		
 		<path id="project.classpath">
 			<pathelement location="${scala-library.jar}" />
@@ -58,10 +59,8 @@
 		</scalac>
 	</target>
 
-	<!-- todo -->
-	<target name="package" depends="compile">
-		<jar jarfile="${deploy.war}">
-			<fileset dir="${web.dir}" />
+	<target name="package" depends="compile" description="package project into jar for distribution">
+		<jar jarfile="${build.dir}/${build.jar}">
 			<fileset dir="${build.dir}" />
 		</jar>
 	</target>
