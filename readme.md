@@ -36,3 +36,7 @@ to:
 * [ ] make output a simple text file
 * [ ] insert new translated files back into products properties files (needs to be called as a separate build task)
 * [ ] option to output all properties for when you are adding a new language
+
+## License
+
+[MIT license](LICENSE.md)
