@@ -86,7 +86,7 @@ object LocalizationDiff {
     
     /**
      * Addes the passed in values to the existing counts.
-     * @param (added key pairs, updated key pairs, removed key pairs, total wc to send to translators)
+     * @param pCounters (added key pairs, updated key pairs, removed key pairs, total wc to send to translators)
      */
 	def updateCounters(pCounters: (Int,Int,Int,Int)) {
 		_addedKeys += pCounters._1
@@ -102,9 +102,9 @@ object LocalizationDiff {
   }
       
   /**
-   * @param 0 - start dir of new resources
-   * @param 1 - start dir of old resources (extracted and unzipped from older build for now)
-   * @param 2 - ???
+   * @param args 0 - start dir of new resources
+   *             1 - start dir of old resources (extracted and unzipped from older build for now)
+   *             2 - ???
    */
   private def parseParameters(args: Array[String]): (File, File, Set[String]) = {
     val _args = (new File(args(0)), new File(args(1)), args(2).split(',').toSet[String])
@@ -116,7 +116,7 @@ object LocalizationDiff {
     
     _args
   }
-  
+
   private def loadPropFile(pFile: File): Properties = {
     if (pFile.getName().contains(FILE_EXTENSION_PROPERTIES)) loadJavaPropFile(pFile)
     else if (pFile.getName().contains(FILE_EXTENSION_RESX)) loadXMLPropFile(pFile)
