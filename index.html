@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Localizationbuildtasks : A tool for preparing resources for translation and integrating them back into your product.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Localizationbuildtasks</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/trodi/localizationBuildTasks">View on GitHub</a>
+
+          <h1 id="project_title">Localizationbuildtasks</h1>
+          <h2 id="project_tagline">A tool for preparing resources for translation and integrating them back into your product.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/trodi/localizationBuildTasks/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/trodi/localizationBuildTasks/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="localization-build-tasks" class="anchor" href="#localization-build-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>localization-build-tasks</h1>
+
+<p>A tool for preparing resources for translation and integrating them back into your product.</p>
+
+<h2>
+<a id="problem" class="anchor" href="#problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem</h2>
+
+<p>In a large code base, I've found that delivering resources to translators and integrating their work back into a product to be a pain point even though all my resources are in 
+properties files as they should be. You can give them your entire directory structure of resource files which may work the first time you translate your product, but I don't
+like the idea of relying on a third party to find and update translations the next next go around and I don't want to pay for them to re-translate an entire product. I needed a way 
+to:</p>
+
+<ul>
+<li>compare the current state of resources with the state of the last translations</li>
+<li>output what key/value pairs had been added/deleted/updated</li>
+<li>import the updated translations into my localized resource files</li>
+<li>integrate this into the build process</li>
+</ul>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to Use</h2>
+
+<ol>
+<li> Call from a build task just like any custom java ant build task.</li>
+</ol>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p><a href="LICENSE.md">MIT license</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Localizationbuildtasks maintained by <a href="https://github.com/trodi">trodi</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
