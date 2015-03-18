@@ -25,7 +25,7 @@ object LocalizationDiff {
   
   def main(args: Array[String]) {
 
-    val (startDir_New, startDir_Old, exclustionList) = parseParameters(args)
+    val (startDir_New, startDir_Old, exclusionsList) = parseParameters(args)
     var _addedKeys, _updatedKeys, _removedKeys, _wordCount = 0
     
     recurseFileSystem(startDir_New, true) //check for updates to existing files and additional files
@@ -45,10 +45,10 @@ object LocalizationDiff {
         	println(new StringBuilder("// New Property File: ").append(pFile.getAbsolutePath()))
           	printPropertySet("// New properties: ", _propFile) 
         }
-	}
+	  }
 	
     /** Checks to see if pFile from the old dir was removed in the new dir. */
-	def helperCheckForRemovedFiles(pFile: File) {
+	  def helperCheckForRemovedFiles(pFile: File) {
 //    val func = { (pFile: File) => {
         val _new = new File(pFile.getAbsolutePath().replace(startDir_Old.getAbsolutePath(), startDir_New.getAbsolutePath()))
     	if (!_new.exists()) {
@@ -57,7 +57,7 @@ object LocalizationDiff {
 	    	println(new StringBuilder("// Removed Property File: ").append(pFile.getAbsolutePath()))
 	      	printPropertySet("// Removed properties: ", _propFile)
     	}
-	}
+	  }
 	
     /** 
      *  Recurse the File system at given point and print out comparisons of files. Call with both new dir and old dir.
@@ -80,20 +80,20 @@ object LocalizationDiff {
     
     /** @return Whether the file is allowed or in the exclusion list. */
     def isNotExcluded(pFile: File): Boolean = {
-      val _name = pFile.getName();
-      !exclustionList.contains(_name)
+      val _name = pFile.getName()
+      !exclusionsList.contains(_name)
     }
     
     /**
      * Addes the passed in values to the existing counts.
      * @param pCounters (added key pairs, updated key pairs, removed key pairs, total wc to send to translators)
      */
-	def updateCounters(pCounters: (Int,Int,Int,Int)) {
-		_addedKeys += pCounters._1
-		_updatedKeys += pCounters._2
-		_removedKeys += pCounters._3
-		_wordCount += pCounters._4
-	}     
+    def updateCounters(pCounters: (Int,Int,Int,Int)) {
+      _addedKeys += pCounters._1
+      _updatedKeys += pCounters._2
+      _removedKeys += pCounters._3
+      _wordCount += pCounters._4
+    }
   }
   
   /** @return Whether this file type is supported for properties file. */
@@ -128,7 +128,7 @@ object LocalizationDiff {
   	val _propFile = new Properties
   	val _inputStream = new FileInputStream(pFile)
   	_propFile.load(_inputStream)
-  	return _propFile
+  	_propFile
   }
   
   /** Load in properties file from .resx file. */
@@ -140,7 +140,7 @@ object LocalizationDiff {
     val _xmlObject = XML.loadFile(pFile).child.filter(x => x.label == _node)
     	.map(x => (_propFile.setProperty(x.attribute(_key).get.toString(), x.child.filter(x => x.label == _value).text)))
     //printPropertySet("test OAI file", _propFile.stringPropertyNames().toArray().toSet, _propFile)
-	return _propFile
+	  _propFile
   }
   
   /** @return (added, updated, removed, total word count that has to be sent to translators) - tuple of the count of changed properties. */
@@ -154,17 +154,17 @@ object LocalizationDiff {
     val _oldKeysSet = JavaConverters.asScalaMapConverter(_old).asScala
     
     val _addedKeys = _newKeysSet.filter(x => !_oldKeysSet.contains(x._1))
-	printPropertySet("// New properties: ", _addedKeys)
+	  printPropertySet("// New properties: ", _addedKeys)
     
     val _removedKeys = _oldKeysSet.filter(x => !_newKeysSet.contains(x._1))
-	printPropertySet("// Removed properties: ", _removedKeys)
+	  printPropertySet("// Removed properties: ", _removedKeys)
 	
-	val _updatedValues = _newKeysSet.filter(x => _oldKeysSet.contains(x._1) && _oldKeysSet(x._1) != _newKeysSet(x._1))
-	printPropertySet("// Updated properties: ", _updatedValues)
+	  val _updatedValues = _newKeysSet.filter(x => _oldKeysSet.contains(x._1) && _oldKeysSet(x._1) != _newKeysSet(x._1))
+	  printPropertySet("// Updated properties: ", _updatedValues)
 	
-	val _wordCount = _addedKeys.map(x => x._2.split(' ').size).sum + _updatedValues.map(x => x._2.split(' ').size).sum
+  	val _wordCount = _addedKeys.map(x => x._2.split(' ').size).sum + _updatedValues.map(x => x._2.split(' ').size).sum
 	
-	return (_addedKeys.size, _updatedValues.size, _removedKeys.size, _wordCount)
+	  (_addedKeys.size, _updatedValues.size, _removedKeys.size, _wordCount)
   }
   
   /** Print out a prettily formatted block of properties associated with pHeader. */
@@ -175,5 +175,4 @@ object LocalizationDiff {
     if (!pSet.isEmpty) println(pHeader)
     pSet.map(x => format(x._1, x._2))
   }
-
 }
