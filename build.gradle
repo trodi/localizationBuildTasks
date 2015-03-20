@@ -9,6 +9,7 @@
 
 // Apply the scala plugin to add support for Scala
 apply plugin: 'scala'
+apply plugin: 'scalaStyle'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -21,6 +22,16 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.1'
 }
 
+buildscript {
+    repositories {
+        jcenter() // only work after gradle 1.7
+    }
+
+    dependencies {
+        classpath 'org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.10:0.7.2'//2.11:0.7.2'
+    }
+}
+
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // We use Scala 2.11 in our library project -- xml module isn't included in default lib
@@ -31,4 +42,11 @@ dependencies {
     testCompile 'junit:junit:4.11'
     testCompile 'org.scalatest:scalatest_2.11:2.1.5'
     testRuntime 'org.scala-lang.modules:scala-xml_2.11:1.0.1'
+}
+
+scalaStyle {
+    configLocation = "scalastyle_config.xml"
+    includeTestSourceDirectory = true
+    source = "src/main/scala"
+    testSource = "src/test/scala"
 }
